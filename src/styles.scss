@@ -1,1 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~@nebular/theme/styles/theming';
+@import '~@nebular/theme/styles/themes/default';
+
+.form-control {
+  border-color: nb-theme(color-basic-400)!important; // fix wierd Nebular border behavior
+}

@@ -1,0 +1,90 @@
+@import '~@nebular/theme/styles/theming';
+@import '~@nebular/theme/styles/themes/default';
+
+.page-title {
+  margin: 0 0 1.5rem;
+  h2 {
+    margin: 0;
+    font-weight: 400;
+  }
+  .action-menu {
+    button {
+      margin-left: 1rem;
+    }
+  }
+}
+
+.card {
+  padding: 2.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: inline-block;
+  margin-bottom: .375rem;
+  font-weight: 600;
+  color: nb-theme(color-basic-700);
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .0625rem;
+}
+
+.form-text {
+  margin: .5rem 0 0;
+}
+
+.images {
+  width: 400px;
+  margin-right: 2rem;
+  img {
+    display: block;
+    width: 100%;
+    border: 1px solid nb-theme(color-basic-500);
+    border-radius: 5px;
+  }
+}
+
+.variants {
+  margin-bottom: 1.125rem;
+  padding: .5rem 0 0 1.5625rem;
+  border-left: .1875rem solid nb-theme(color-basic-500);
+  .variant-name, .variant-add {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      left: -1.5625rem;
+      top: 1.0625rem;
+      width: .9375rem;
+      height: .1875rem;
+      background-color: nb-theme(color-basic-500);
+    }
+  }
+  .variant-name {
+    margin: 0 0 .75rem;
+    font-weight: 700;
+    font-size: 1rem;
+    .variant-remove {
+      cursor: pointer;
+      font-size: .75rem;
+      font-weight: 500;
+      color: nb-theme(color-basic-700);
+      &:hover {
+        opacity: .75;
+      }
+      &::before {
+        content: '[';
+      }
+      &::after {
+        content: ']';
+      }
+    }
+  }
+  .variant-add {
+    top: 1.25rem;
+    margin-top: -.5rem;
+  }
+}

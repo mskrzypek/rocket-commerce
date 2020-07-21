@@ -1,0 +1,84 @@
+<div class="page-title d-flex align-items-center justify-content-between">
+  <h2>{{ product ? 'Edycja produktu' : 'Dodawanie produktu' }}</h2>
+  <div class="action-menu d-flex">
+    <button nbButton status="basic" routerLink="/admin/products/list">&larr; Wstecz</button>
+    <button nbButton status="primary" (click)="save()" [disabled]="!form.valid || form.pristine">Zapisz</button>
+    <button nbButton status="primary" [nbContextMenu]="items">&hellip;</button>
+  </div>
+</div>
+
+<nb-card>
+  <nb-card-body class="card">
+    <form [formGroup]="form" class="d-flex" novalidate>
+      <div class="images">
+        <img src="{{ form.controls.image.value ? form.controls.image.value : '/assets/placeholder.png' }}">
+      </div>
+      <div class="flex-fill">
+        <div class="form-group">
+          <label for="name" class="form-label">Nazwa</label>
+          <input type="text" id="name" formControlName="name" class="form-control" nbInput fullWidth>
+          <div *ngIf="form.controls.name.touched && !form.controls.name.valid" class="form-text text-danger">
+            Wpisz poprawną nazwę produktu (co najmniej 5 znaków).
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="sku" class="form-label">SKU</label>
+          <input type="text" id="sku" formControlName="sku" class="form-control" nbInput fullWidth>
+          <div *ngIf="form.controls.sku.touched && !form.controls.sku.valid" class="form-text text-danger">
+            Wpisz poprawny kod SKU produktu.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description" class="form-label">Opis</label>
+          <textarea id="description" formControlName="description" class="form-control" nbInput fullWidth></textarea>
+        </div>
+        <div class="form-group">
+          <label for="weight" class="form-label">Waga netto (g)</label>
+          <input type="number" step="1" id="weight" formControlName="weight" class="form-control" nbInput fullWidth>
+          <div *ngIf="form.controls.weight.touched && !form.controls.weight.valid" class="form-text text-danger">
+            Wpisz poprawną wagę produktu (tylko liczby).
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="price" class="form-label">Cena (zł)</label>
+          <input type="number" step="0.01" id="price" formControlName="price" class="form-control" nbInput fullWidth>
+          <div *ngIf="form.controls.price.touched && !form.controls.price.valid" class="form-text text-danger">
+            Wpisz poprawną cenę produktu (tylko liczby).
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Warianty</label>
+          <div formArrayName="variants" class="variants">
+            <div *ngFor="let variant of form.controls.variants['controls']; let i=index">
+              <h3 class="variant-name">
+                Wariant {{ i + 1 }}
+                <span class="variant-remove" (click)="removeVariant(i)">Usuń</span>
+              </h3>
+              <div [formGroupName]="i">
+                <div class="form-group">
+                  <label for="name{{ i }}" class="form-label">Nazwa</label>
+                  <input type="text" id="name{{ i }}" formControlName="name" class="form-control" nbInput fullWidth>
+                  <div *ngIf="variant.controls.name.touched && !variant.controls.name.valid" class="form-text text-danger">
+                      Wpisz poprawną nazwę wariantu (co najmniej 5 znaków).
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="price{{ i }}" class="form-label">Cena (zł)</label>
+                  <input type="number" step="0.01" id="price{{ i }}" formControlName="price" class="form-control" nbInput fullWidth>
+                  <div *ngIf="variant.controls.price.touched && !variant.controls.price.valid" class="form-text text-danger">
+                    Wpisz poprawną cenę wariantu.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="variant-add">
+              <button nbButton status="basic" (click)="addVariant()">
+                <nb-icon icon="plus-circle-outline"></nb-icon> Dodaj wariant
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

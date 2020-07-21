@@ -1,0 +1,26 @@
+@import '~@nebular/theme/styles/theming';
+@import '~@nebular/theme/styles/themes/default';
+
+.page-title {
+  margin: 0 0 1.5rem;
+  h2 {
+    margin: 0;
+    font-weight: 400;
+  }
+}
+
+.filters {
+  width: 25%;
+  min-width: 200px;
+}
+
+.product-cover {
+  .variants, .image {
+    margin-right: 1rem;
+  }
+  .image {
+    img {
+      width: 5rem;
+    }
+  }
+}

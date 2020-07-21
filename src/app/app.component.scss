@@ -1,0 +1,52 @@
+@import '~@nebular/theme/styles/theming';
+@import '~@nebular/theme/styles/themes/default';
+
+::ng-deep {
+
+  .nb-theme-default {
+
+    nb-menu .menu-item a .menu-title {
+      flex: initial;
+    }
+
+    [nbInput] {
+      &.size-medium {
+        padding: .5rem .75rem .375rem;
+        font-weight: 400;
+        &::placeholder {
+          line-height: inherit;
+        }
+      }
+    }
+
+    .nb-tree-grid {
+      table-layout: auto;
+      th {
+        white-space: nowrap;
+      }
+      .nb-tree-grid-row.parent:hover {
+        background: nb-theme(color-basic-200);
+        cursor: pointer;
+      }
+      .row-toggle nb-icon {
+        width: 2rem;
+        height: 2rem;
+        background: nb-theme(color-basic-400);
+        border-radius: 50%;
+      }
+      .parent .node {
+        width: 5;
+      }
+      .child .node {
+        margin: 0 0 1.25rem 1.25rem;
+        width: 2.5rem;
+        height: 1.25rem;
+        border-left: .1875rem solid nb-theme(color-basic-500);
+        border-bottom: .1875rem solid nb-theme(color-basic-500);
+      }
+
+    }
+
+  }
+
+}

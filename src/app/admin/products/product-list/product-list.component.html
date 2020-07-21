@@ -1,0 +1,108 @@
+<div class="page-title">
+  <h2>Produkty</h2>
+</div>
+
+<nb-card>
+  <nb-card-body class="card">
+    <div class="d-flex justify-content-between">
+      <div class="filters">
+        <input placeholder="Szukaj&hellip;" [nbFilterInput]="dataSource" class="form-control" nbInput fullWidth>
+      </div>
+      <div class="actions">
+        <button nbButton status="primary" routerLink="/admin/products/add">
+          <nb-icon icon="plus-outline"></nb-icon> Dodaj produkt
+        </button>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+<nb-card>
+  <nb-card-body class="card">
+
+    <table
+      [nbTreeGrid]="dataSource"
+      [nbSort]="dataSource"
+      (sort)="updateSort($event)">
+
+      <tr
+        nbTreeGridHeaderRow
+        *nbTreeGridHeaderRowDef="allColumns">
+      </tr>
+
+      <tr
+        nbTreeGridRow
+        *nbTreeGridRowDef="let row; columns: allColumns"
+        [clickToToggle]="false"
+        [routerLink]="row.data.id ? ['/admin/products', row.data.id] : []"
+        [class]="row.data.id ? 'parent' : 'child'">
+      </tr>
+
+      <ng-container
+        [nbTreeGridColumnDef]="customColumn">
+
+        <th
+          nbTreeGridHeaderCell
+          [nbSortHeader]="getSortDirection(customColumn)"
+          *nbTreeGridHeaderCellDef>
+          {{ headers[0] }}
+        </th>
+
+        <td
+          nbTreeGridCell
+          *nbTreeGridCellDef="let row">
+
+          <div class="product-cover d-flex align-items-center">
+            <div class="variants">
+              <nb-tree-grid-row-toggle
+                class="row-toggle"
+                [nbTooltip]="row.expanded ? 'Ukryj warianty produktu' : 'Pokaż warianty produktu'"
+                [expanded]="row.expanded"
+                [style.visibility]="row.children !== undefined ? 'visible' : 'hidden'">
+              </nb-tree-grid-row-toggle>
+            </div>
+            <div class="image">
+              <div class="node">
+                <img
+                  *ngIf="row.data.id !== undefined"
+                  src="{{ row.data.image ? row.data.image : '/assets/placeholder.png' }}"
+                  alt="{{ row.data[customColumn] }}">
+              </div>
+            </div>
+            <div class="name">
+              {{ row.data[customColumn] }}
+            </div>
+          </div>
+
+        </td>
+
+      </ng-container>
+
+      <ng-container
+        *ngFor="let column of defaultColumns; let index = index"
+        [nbTreeGridColumnDef]="column"
+        [showOn]="getShowOn(index)">
+
+        <th
+          nbTreeGridHeaderCell
+          [nbSortHeader]="getSortDirection(column)"
+          *nbTreeGridHeaderCellDef>
+
+          {{ headers[index+1] }}
+
+        </th>
+
+        <td
+          nbTreeGridCell
+          *nbTreeGridCellDef="let row">
+
+          {{ row.data[column] || '-' }}
+
+        </td>
+
+      </ng-container>
+
+    </table>
+
+  </nb-card-body>
+</nb-card>
